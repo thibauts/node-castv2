@@ -34,7 +34,6 @@ client.connect('192.168.1.10', function() {
 client.on('message', function(sourceId, destinationId, namespace, data) {
   if(namespace === 'urn:x-cast:com.google.cast.tp.deviceauth') {
     if(data.error) throw new Error('device authentication failed'); // This is very unlikely
-
     console.log('device authentication ok');
     onconnected();
   }
@@ -58,7 +57,6 @@ function onconnected() {
   connection.send('sender-0', 'receiver-0', { type: 'CONNECT' });
 
   var heartbeat = client.createChannel('urn:x-cast:com.google.cast.tp.heartbeat', 'JSON');
-
   function onheartbeat() {
     heartbeat.send('sender-0', 'receiver-0', { type: 'PING' });
   }
