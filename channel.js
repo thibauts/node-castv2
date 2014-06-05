@@ -27,7 +27,6 @@ function Channel(bus, namespace, encoding) {
 util.inherits(Channel, EventEmitter);
 
 Channel.prototype.send = function(sourceId, destinationId, data) {
-  console.log('send');
   this.bus.send(
     sourceId,
     destinationId,

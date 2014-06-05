@@ -1,10 +1,10 @@
-var EventEmitter  = require('events').EventEmitter;
-var util          = require('util');
-var tls           = require('tls');
-var debug         = require('debug')('castv2-message-bus');
-var protocol      = require('./protocol.js');
+var EventEmitter        = require('events').EventEmitter;
+var util                = require('util');
+var tls                 = require('tls');
+var debug               = require('debug')('castv2-message-bus');
+var protocol            = require('./protocol');
 var PacketStreamWrapper = require('./packet-stream-wrapper');
-var Channel = require('./channel');
+var Channel             = require('./channel');
 
 var CastMessage = protocol.CastMessage;
 
