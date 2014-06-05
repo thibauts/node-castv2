@@ -27,6 +27,7 @@ Server.prototype.listen = function(port, host, callback) {
   this.server.listen.apply(this.server, args.concat([onlisten]));
 
   this.server.on('secureConnection', onconnect);
+  this.server.on('error', onerror);
   this.server.once('close', onshutdown);
 
   function onlisten() {
@@ -93,6 +94,11 @@ Server.prototype.listen = function(port, host, callback) {
     debug('server shutting down');
     self.server.removeListener('secureConnection', onconnect);
     self.emit('close');
+  }
+
+  function onerror(err) {
+    debug('error: %s %j', err.message, err);
+    self.emit('error', err);
   }
 
 };
