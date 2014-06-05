@@ -1,0 +1,15 @@
+{
+  "name": "castv2-message-bus",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "thibauts",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "~0.8.1",
+    "protobuf": "~0.8.8"
+  }
+}
