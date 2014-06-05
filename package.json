@@ -2,14 +2,18 @@
   "name": "castv2-message-bus",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "thibauts",
   "license": "MIT",
+  "main": "index.js",
   "dependencies": {
     "debug": "~0.8.1",
     "protobuf": "~0.8.8"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chromecast",
+    "castv2"
+  ]
 }
