@@ -4,6 +4,7 @@ var tls           = require('tls');
 var debug         = require('debug')('castv2-message-bus');
 var protocol      = require('./protocol.js');
 var PacketStreamWrapper = require('./packet-stream-wrapper');
+var Channel = require('./channel');
 
 var CastMessage = protocol.CastMessage;
 
@@ -123,5 +124,9 @@ MessageBus.prototype.send = function(sourceId, destinationId, namespace, data) {
   var buf = CastMessage.serialize(message);
   this.ps.send(buf);
 };
+
+MessageBus.prototype.createChannel = function(namespace) {
+  return new Channel(this, namespace);
+}
 
 module.exports = MessageBus;
