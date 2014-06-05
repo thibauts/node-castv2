@@ -8,15 +8,15 @@ var Channel             = require('./channel');
 
 var CastMessage = protocol.CastMessage;
 
-function MessageBus() {
+function Client() {
   EventEmitter.call(this);
   this.socket = null;
   this.ps = null;
 }
 
-util.inherits(MessageBus, EventEmitter);
+util.inherits(Client, EventEmitter);
 
-MessageBus.prototype.connect = function(options, callback) {
+Client.prototype.connect = function(options, callback) {
   var self = this;
 
   if(typeof options === 'string') {
@@ -89,12 +89,12 @@ MessageBus.prototype.connect = function(options, callback) {
 
 };
 
-MessageBus.prototype.close = function() {
+Client.prototype.close = function() {
   debug('closing connection ...');
   this.socket.end();
 };
 
-MessageBus.prototype.send = function(sourceId, destinationId, namespace, data) {
+Client.prototype.send = function(sourceId, destinationId, namespace, data) {
   var message = {
     protocolVersion: 0, // CASTV2_1_0
     sourceId: sourceId,
@@ -125,8 +125,8 @@ MessageBus.prototype.send = function(sourceId, destinationId, namespace, data) {
   this.ps.send(buf);
 };
 
-MessageBus.prototype.createChannel = function(namespace, encoding) {
+Client.prototype.createChannel = function(namespace, encoding) {
   return new Channel(this, namespace, encoding);
 };
 
-module.exports = MessageBus;
+module.exports = Client;
