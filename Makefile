@@ -17,4 +17,4 @@ tls: private-key.pem public-cert.pem
 clean:
 	rm lib/cast_channel.desc private-key.pem csr.pem public-cert.pem
 
-.PHONY: clean proto tls all
+.PHONY: clean proto tls
