@@ -14,21 +14,21 @@ function PacketStreamWrapper(stream) {
 
   var self = this;
   this.stream.on('readable', function() {
-    switch(state) {
-      case WAITING_HEADER:
-        var header = stream.read(4);
-        if(header !== null) {
+    while(true) {
+      switch(state) {
+        case WAITING_HEADER:
+          var header = stream.read(4);
+          if(header === null) return;
           packetLength = header.readUInt32BE(0);
           state = WAITING_PACKET;
-        }
-        break;
-      case WAITING_PACKET:
-        var packet = stream.read(packetLength);
-        if(packet !== null) {
+          break;
+        case WAITING_PACKET:
+          var packet = stream.read(packetLength);
+          if(packet === null) return;
           self.emit('packet', packet);
           state = WAITING_HEADER;
-        }
-        break;
+          break;
+      }
     }
   });
 }
