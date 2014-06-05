@@ -75,3 +75,17 @@ Run it with the following command to get a full trace of the messages exchanged 
 ```bash 
 $ DEBUG=* node example.js
 ```
+
+Device discovery with the `mdns` module
+
+```javascript
+var mdns = require('mdns');
+
+var browser = mdns.createBrowser(mdns.tcp('googlecast'));
+
+browser.on('serviceUp', function(service) {
+  console.log('found device %s at %s:%d', service.name, service.addresses[0], service.port);
+});
+
+browser.start();
+```
