@@ -22,7 +22,6 @@ var client = new Client();
 client.connect('192.168.1.10', function() {
   console.log('connected');
 
-  // Messages can be sent on the bare client
   client.send(
     'sender-0',
     'receiver-0',
@@ -52,7 +51,7 @@ client.on('error', function(err) {
 
 function onconnected() {
   /* 
-   * Channels can be created by clients to scope messages. An optional `encoding` parameter
+   * Channels allow clients to scope messages. An optional `encoding` parameter
    * can be specified for automatic data parsing / serialization
    */
   var connection = client.createChannel('urn:x-cast:com.google.cast.tp.connection', 'JSON');
@@ -71,7 +70,7 @@ function onconnected() {
 }
 ```
 
-Run it with the following command to get a full trace of the message exchanged with the dongle.
+Run it with the following command to get a full trace of the messages exchanged with the dongle.
 
 ```bash 
 $ DEBUG=* node example.js
