@@ -9,7 +9,7 @@ The module provides both a `Client` and a `Server` implementation of the low-lev
 Examples
 --------
 
-A simple client doing the deviceauth handshake, connecting to the receiver and starting the heartbeat
+A simple client doing the deviceauth handshake, connecting to the receiver and starting the heartbeat :
 
 ``` javascript
 var messagebus = require('castv2-messagebus');
@@ -76,7 +76,7 @@ Run it with the following command to get a full trace of the messages exchanged 
 $ DEBUG=* node example.js
 ```
 
-Device discovery with the `mdns` module
+Device discovery with the `mdns` module :
 
 ```javascript
 var mdns = require('mdns');
