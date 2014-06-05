@@ -69,7 +69,7 @@ MessageBus.prototype.connect = function(options, callback) {
       message.payloadType === 'BINARY' 
         ? util.inspect(message.payloadBinary)
         : message.payloadUtf8
-    );    
+    );
 
     if(message.protocolVersion !== 'CASTV2_1_0') {
       self.emit('error', new Error('Unsupported protocol version: ' + message.protocolVersion));
