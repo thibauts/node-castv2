@@ -125,8 +125,8 @@ MessageBus.prototype.send = function(sourceId, destinationId, namespace, data) {
   this.ps.send(buf);
 };
 
-MessageBus.prototype.createChannel = function(namespace) {
-  return new Channel(this, namespace);
-}
+MessageBus.prototype.createChannel = function(namespace, encoding) {
+  return new Channel(this, namespace, encoding);
+};
 
 module.exports = MessageBus;
