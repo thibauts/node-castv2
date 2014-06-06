@@ -83,7 +83,7 @@ Packet length is a 32 bits Big Endian Unsigned Integer (UInt32BE in nodejs parla
 
 Messages are serialized with Protocol Buffers and structured as follows (excerpt of `cast_channel.proto` with comments stripped) :
 
-```
+```protobuf
 message CastMessage {
   enum ProtocolVersion {
     CASTV2_1_0 = 0;
@@ -153,7 +153,7 @@ Device authentication enables a sender to authenticate a Chromecast device. Auth
 
 First the sender sends a *challenge* message to the platform receiver `receiver-0` which responds by either a *response* message containing a signature and a certificate or an *error* message. These 3 payloads are protocol buffers encoded and described in `cast_channel.proto` as follows :
 
-```
+```protobuf
 message AuthChallenge {
 }
 
@@ -196,7 +196,7 @@ The protocol is JSON encoded and is request / response based. Requests include a
 
 As these requests affect the receiver's status they all return a `RECEIVER_STATUS` message of the following form :
 
-```
+```json
 {
   "requestId": 8476438,
   "status": { 
