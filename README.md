@@ -232,5 +232,5 @@ You can join an existing session (launched by another sender) by issuing the sam
 | **Message payload**                                        | **Description** 
 |:-----------------------------------------------------------|:-----------------------------------------------------------
 | `{ "type": "SET_VOLUME", "volume": { level: <float> } }`   | sets volume. `level` is a float between 0 and 1
-| ```json { "type": "SET_VOLUME", "volume": { muted: <boolean> } }``` | mutes / unmutes. `muted` is true or false
+| `{ "type": "SET_VOLUME", "volume": { muted: <boolean> } }` | mutes / unmutes. `muted` is true or false
 
