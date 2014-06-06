@@ -181,7 +181,7 @@ The challenge message is empty in the current version of the protocol (CAST v2.1
 
 The platform receiver `receiver-0` implements the `urn:x-cast:com.google.cast.receiver` namespace / protocol which provides an interface to *launch*, *stop*, and *query the status* of running applications. `receiver-0` also broadcast status messages on this namespace when other senders launch, stop, or affect the status of running apps. It also allows to check app for availability.
 
-The protocol is JSON encoded and is request / response based. Requests include a `type` field containing the type of the request, namely `LAUNCH`, `STOP`, `GET_STATUS` and `GET_APP_AVAILABILITY`, and a `requestId` field that will be reflected in the receiver's response and allows the sender to pair request and responses. `requestId` is not shown in the table below but must be present in event request. In the wild it is an initially random integer that gets incremented for each subsequent request.
+The protocol is JSON encoded and is request / response based. Requests include a `type` field containing the type of the request, namely `LAUNCH`, `STOP`, `GET_STATUS` and `GET_APP_AVAILABILITY`, and a `requestId` field that will be reflected in the receiver's response and allows the sender to pair request and responses. `requestId` is not shown in the table below but must be present in every request. In the wild it is an initially random integer that gets incremented for each subsequent request.
 
 | **Message payload**                                  | **Description** 
 |:-----------------------------------------------------|:-----------------------------------------------------------------------
@@ -227,10 +227,10 @@ You can join an existing session (launched by another sender) by issuing the sam
 
 ### Controlling device volume
 
-`receiver-0` allows setting volume and muting at the device-level though the `SET_VOLUME` request on `urn:x-cast:com.google.cast.receiver`.
+`receiver-0` allows setting volume and muting at the device-level through the `SET_VOLUME` request on `urn:x-cast:com.google.cast.receiver`.
 
 | **Message payload**                                        | **Description** 
 |:-----------------------------------------------------------|:-----------------------------------------------------------
 | `{ "type": "SET_VOLUME", "volume": { level: <float> } }`   | sets volume. `level` is a float between 0 and 1
-| `{ "type": "SET_VOLUME", "volume": { muted: <boolean> } }` | mutes / unmutes. `muted` is true or false
+| ```json { "type": "SET_VOLUME", "volume": { muted: <boolean> } }``` | mutes / unmutes. `muted` is true or false
 
