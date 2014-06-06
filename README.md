@@ -9,8 +9,6 @@ The module provides both a `Client` and a `Server` implementation of the low-lev
 Usage
 -----
 
-A simple client doing the deviceauth handshake, connecting to the receiver and starting the heartbeat :
-
 ``` javascript
 var Client = require('castv2-messagebus').Client;
 var mdns = require('mdns');
