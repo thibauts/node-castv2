@@ -222,7 +222,7 @@ The protocol is JSON encoded and is request / response based. Requests include a
 
 As these requests affect the receiver's status they all return a `RECEIVER_STATUS` message of the following form :
 
-```
+```json
 {
   "requestId": 8476438,
   "status": { 
