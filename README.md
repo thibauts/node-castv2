@@ -6,65 +6,53 @@ This module is an implementation of the Chromecast message bus protocol over TLS
 
 The module provides both a `Client` and a `Server` implementation of the low-level message bus protocol. The server is (sadly) pretty useless because device authentication gets in the way for now (and maybe for good). The client still allows you to connect and exchange messages with a Chromecast dongle without any restriction. 
 
-Examples
---------
+Usage
+-----
 
 A simple client doing the deviceauth handshake, connecting to the receiver and starting the heartbeat :
 
 ``` javascript
-var messagebus = require('castv2-messagebus');
+var Client = require('castv2-messagebus').Client;
+var mdns = require('mdns');
 
-var Client = messagebus.Client;
-var DeviceAuthMessage = messagebus.DeviceAuthMessage;
+var browser = mdns.createBrowser(mdns.tcp('googlecast'));
 
-var client = new Client();
-
-client.connect('192.168.1.10', function() {
-  console.log('connected');
-
-  client.send(
-    'sender-0',
-    'receiver-0',
-    'urn:x-cast:com.google.cast.tp.deviceauth',
-    DeviceAuthMessage.serialize({ challenge: {} })
-  );
-
+browser.on('serviceUp', function(service) {
+  console.log('found device %s at %s:%d', service.name, service.addresses[0], service.port);
+  ondeviceup(service.addresses[0]);
+  browser.stop();
 });
 
-client.on('message', function(sourceId, destinationId, namespace, data) {
-  if(namespace === 'urn:x-cast:com.google.cast.tp.deviceauth') {
-    if(data.error) throw new Error('device authentication failed'); // This is very unlikely
-    console.log('device authentication ok');
-    onconnected();
-  }
-});
+browser.start();
 
-client.on('close', function() {
-  console.log('connection closed');
-});
+function ondeviceup(host) {
 
-client.on('error', function(err) {
-  console.log('error', err);
-  client.close();
-});
+  var client = new Client();
+  client.connect(host, function() {
+    // create various namespace handlers
+    var connection = client.createChannel('urn:x-cast:com.google.cast.tp.connection', 'JSON');
+    var heartbeat  = client.createChannel('urn:x-cast:com.google.cast.tp.heartbeat', 'JSON');
+    var receiver   = client.createChannel('urn:x-cast:com.google.cast.receiver', 'JSON');
 
-function onconnected() {
-  /* 
-   * Channels allow clients to scope messages. An optional `encoding` parameter
-   * can be specified for automatic data parsing / serialization
-   */
-  var connection = client.createChannel('urn:x-cast:com.google.cast.tp.connection', 'JSON');
-  connection.send('sender-0', 'receiver-0', { type: 'CONNECT' });
+    // establish virtual connection to the receiver
+    connection.send('sender-0', 'receiver-0', { type: 'CONNECT' });
 
-  var heartbeat = client.createChannel('urn:x-cast:com.google.cast.tp.heartbeat', 'JSON');
-  function onheartbeat() {
-    heartbeat.send('sender-0', 'receiver-0', { type: 'PING' });
-  }
-  setInterval(onheartbeat, 5000);
+    // start heartbeating
+    setInterval(function() {
+      heartbeat.send('sender-0', 'receiver-0', { type: 'PING' });
+    }, 5000);
 
-  heartbeat.on('message', function(sourceId, destinationId, data) {
-    console.log(data.type); // PONG
+    // launch YouTube app
+    receiver.send('sender-0', 'receiver-0', { type: 'LAUNCH', appId: 'YouTube', requestId: 1 });
+
+    // display receiver messages
+    receiver.on('message', function(sourceId, receiverId, data) {
+      if(data.type = 'RECEIVER_STATUS') {
+        console.log(data.status);
+      }
+    });
   });
+
 }
 ```
 
@@ -72,20 +60,6 @@ Run it with the following command to get a full trace of the messages exchanged 
 
 ```bash 
 $ DEBUG=* node example.js
-```
-
-Device discovery with the `mdns` module :
-
-```javascript
-var mdns = require('mdns');
-
-var browser = mdns.createBrowser(mdns.tcp('googlecast'));
-
-browser.on('serviceUp', function(service) {
-  console.log('found device %s at %s:%d', service.name, service.addresses[0], service.port);
-});
-
-browser.start();
 ```
 
 Protocol description
