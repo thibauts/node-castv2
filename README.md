@@ -43,7 +43,7 @@ function ondeviceup(host) {
     // launch YouTube app
     receiver.send('sender-0', 'receiver-0', { type: 'LAUNCH', appId: 'YouTube', requestId: 1 });
 
-    // display receiver messages
+    // display receiver status updates
     receiver.on('message', function(sourceId, receiverId, data) {
       if(data.type = 'RECEIVER_STATUS') {
         console.log(data.status);
