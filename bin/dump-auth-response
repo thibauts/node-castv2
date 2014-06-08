@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+var Client = require('../').Client;
+var DeviceAuthMessage = require('../').DeviceAuthMessage;
+var fs = require('fs');
+var exec = require('child_process').exec;
+
+var usage = 'Usage: ' + process.argv[0] + ' <host> [port]';
+
+var host = process.argv[2];
+var port = process.argv[3] || 8009;
+
+if(!host) {
+  console.error(usage)
+  process.exit(1);
+}
+
+var client = new Client();
+
+var opts = {
+  host: host,
+  port: port
+};
+
+client.connect(opts, function() {
+  var deviceauth = client.createChannel('urn:x-cast:com.google.cast.tp.deviceauth');
+
+  deviceauth.send('sender-0', 'receiver-0', DeviceAuthMessage.serialize({ challenge: {} }));
+  deviceauth.on('message', function(sourceId, destinationId, data) {
+    var response = DeviceAuthMessage.parse(data).response;
+    client.close();
+
+    var sigFilename = 'auth-signature.sig';
+    var certFilenameDer = 'auth-certificate.der';
+
+    fs.writeFileSync(sigFilename, response.signature);
+    fs.writeFileSync(certFilenameDer, response.clientAuthCertificate);
+
+    var certFilenamePem = 'auth-certificate.pem';
+
+    exec('openssl x509 -in ' + certFilenameDer + ' -inform DER -out ' + certFilenamePem + ' -outform PEM; rm ' + certFilenameDer);
+
+    console.log('output written to %s and %s', sigFilename, certFilenamePem);
+  });
+
+});

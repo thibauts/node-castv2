@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+var exec = require('child_process').exec;
+var fs = require('fs');
+
+var usage = 'Usage: ' + process.argv[0] + ' <host> [port]';
+
+var host = process.argv[2];
+var port = process.argv[3] || 8009;
+
+if(!host) {
+  console.error(usage)
+  process.exit(1);
+}
+
+var cmd = 'openssl s_client -connect ' + host + ':' + port + ' < /dev/null';
+
+exec(cmd, function(err, stdout, stderr) {
+  var match = /-----BEGIN CERTIFICATE-----(\s|.)*?-----END CERTIFICATE-----/.exec(stdout);
+  var cert = match[0];
+  var certFilename = 'peer-certificate.pem';
+  fs.writeFileSync(certFilename, cert);
+  console.log('output written to %s', certFilename);
+});
