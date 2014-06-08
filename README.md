@@ -175,7 +175,7 @@ message DeviceAuthMessage {
 }
 ```
 
-The challenge message is empty in the current version of the protocol (CAST v2.1.0), yet official senders are checking the returned signature and certificate, probably against information advertised by the dongle during the MDNS discovery phase.
+The challenge message is empty in the current version of the protocol (CAST v2.1.0), yet official sender platforms are checking the returned certificate and signature. Details of the verification process can be found in [this issue](https://github.com/thibauts/node-castv2-messagebus/issues/2).
 
 ### Controlling applications
 
