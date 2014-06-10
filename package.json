@@ -1,6 +1,6 @@
 {
   "name": "castv2-messagebus",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An implementation of the Chromecast CASTV2 message bus protocol",
   "author": "thibauts",
   "license": "MIT",

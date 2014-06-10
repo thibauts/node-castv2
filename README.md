@@ -28,23 +28,23 @@ function ondeviceup(host) {
   var client = new Client();
   client.connect(host, function() {
     // create various namespace handlers
-    var connection = client.createChannel('urn:x-cast:com.google.cast.tp.connection', 'JSON');
-    var heartbeat  = client.createChannel('urn:x-cast:com.google.cast.tp.heartbeat', 'JSON');
-    var receiver   = client.createChannel('urn:x-cast:com.google.cast.receiver', 'JSON');
+    var connection = client.createChannel('sender-0', 'urn:x-cast:com.google.cast.tp.connection', 'JSON');
+    var heartbeat  = client.createChannel('sender-0', 'urn:x-cast:com.google.cast.tp.heartbeat', 'JSON');
+    var receiver   = client.createChannel('sender-0', 'urn:x-cast:com.google.cast.receiver', 'JSON');
 
     // establish virtual connection to the receiver
-    connection.send('sender-0', 'receiver-0', { type: 'CONNECT' });
+    connection.send('receiver-0', { type: 'CONNECT' });
 
     // start heartbeating
     setInterval(function() {
-      heartbeat.send('sender-0', 'receiver-0', { type: 'PING' });
+      heartbeat.send('receiver-0', { type: 'PING' });
     }, 5000);
 
     // launch YouTube app
-    receiver.send('sender-0', 'receiver-0', { type: 'LAUNCH', appId: 'YouTube', requestId: 1 });
+    receiver.send('receiver-0', { type: 'LAUNCH', appId: 'YouTube', requestId: 1 });
 
     // display receiver status updates
-    receiver.on('message', function(sourceId, receiverId, data) {
+    receiver.on('message', function(sourceId, data, broadcast) {
       if(data.type = 'RECEIVER_STATUS') {
         console.log(data.status);
       }
