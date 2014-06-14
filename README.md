@@ -6,6 +6,13 @@ This module is an implementation of the Chromecast CASTV2 protocol over TLS. The
 
 The module provides both a `Client` and a `Server` implementation of the low-level protocol. The server is (sadly) pretty useless because device authentication gets in the way for now (and maybe for good). The client still allows you to connect and exchange messages with a Chromecast dongle without any restriction. 
 
+Installation
+------------
+
+``` bash
+$ npm install castv2
+```
+
 Usage
 -----
 
