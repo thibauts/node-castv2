@@ -1,16 +1,16 @@
-castv2-messagebus
-=================
-### An implementation of the Chromecast CASTV2 message bus protocol
+castv2
+======
+### An implementation of the Chromecast CASTV2 protocol
 
-This module is an implementation of the Chromecast message bus protocol over TLS. The internet is very scarse on information about the new Chromecast protocols so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
+This module is an implementation of the Chromecast CASTV2 protocol over TLS. The internet is very scarse on information about the new Chromecast protocol so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
 
-The module provides both a `Client` and a `Server` implementation of the low-level message bus protocol. The server is (sadly) pretty useless because device authentication gets in the way for now (and maybe for good). The client still allows you to connect and exchange messages with a Chromecast dongle without any restriction. 
+The module provides both a `Client` and a `Server` implementation of the low-level protocol. The server is (sadly) pretty useless because device authentication gets in the way for now (and maybe for good). The client still allows you to connect and exchange messages with a Chromecast dongle without any restriction. 
 
 Usage
 -----
 
 ``` javascript
-var Client = require('castv2-messagebus').Client;
+var Client = require('castv2').Client;
 var mdns = require('mdns');
 
 var browser = mdns.createBrowser(mdns.tcp('googlecast'));

@@ -1,7 +1,7 @@
 {
-  "name": "castv2-messagebus",
+  "name": "castv2",
   "version": "0.1.1",
-  "description": "An implementation of the Chromecast CASTV2 message bus protocol",
+  "description": "An implementation of the Chromecast CASTV2 protocol",
   "author": "thibauts",
   "license": "MIT",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thibauts/node-castv2-messagebus.git"
+    "url": "git://github.com/thibauts/node-castv2.git"
   },
   "keywords": [
     "chromecast",
