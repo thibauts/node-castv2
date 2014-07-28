@@ -7,7 +7,7 @@
   "main": "index.js",
   "dependencies": {
     "debug": "~0.8.1",
-    "node-protobuf": "^1.2.0"
+    "protobufjs": "^3.2.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
