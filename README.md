@@ -13,6 +13,12 @@ Installation
 $ npm install castv2
 ```
 
+On windows, to avoid native modules dependencies, use
+
+``` bash
+$ npm install castv2 --no-optional
+```
+
 Usage
 -----
 
