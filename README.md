@@ -247,3 +247,7 @@ You can join an existing session (launched by another sender) by issuing the sam
 | `{ "type": "SET_VOLUME", "volume": { level: <float> } }`   | sets volume. `level` is a float between 0 and 1
 | `{ "type": "SET_VOLUME", "volume": { muted: <boolean> } }` | mutes / unmutes. `muted` is true or false
 
+Contributors
+------------
+
+* [jamiees2](https://github.com/jamiees2) (James Sigurðarson)
