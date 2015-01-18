@@ -162,7 +162,7 @@ Failing to do so will lead to connection termination. The default interval seems
 
 Device authentication enables a sender to authenticate a Chromecast device. Authenticating the device is purely optional from a sender's perspective, though the official SDK libraries do it to prevent rogue Chromecast devices to communicate with the official sender platforms. Device authentication is taken care of by the `urn:x-cast:com.google.cast.tp.deviceauth` namespace / protocol.
 
-First the sender sends a *challenge* message to the platform receiver `receiver-0` which responds by either a *response* message containing a signature and a certificate or an *error* message. These 3 payloads are protocol buffers encoded and described in `cast_channel.proto` as follows :
+First the sender sends a *challenge* message to the platform receiver `receiver-0` which responds by either a *response* message containing a signature, certificate and a variable number of certificate authority certificates that the sent certificate is verified against or an *error* message. These 3 payloads are protocol buffers encoded and described in `cast_channel.proto` as follows :
 
 ```protobuf
 message AuthChallenge {
@@ -171,6 +171,7 @@ message AuthChallenge {
 message AuthResponse {
   required bytes signature = 1;
   required bytes client_auth_certificate = 2;
+  repeated bytes client_ca = 3;
 }
 
 message AuthError {
