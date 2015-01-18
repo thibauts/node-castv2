@@ -60,6 +60,7 @@ message AuthChallenge {
 message AuthResponse {
   required bytes signature = 1;
   required bytes client_auth_certificate = 2;
+  repeated bytes client_ca = 3;
 }
 
 message AuthError {
