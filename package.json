@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
-    "debug": "~1.0.1",
+    "debug": "^2.2.0",
     "protobufjs": "^3.2.2"
   },
   "scripts": {
