@@ -1,8 +1,8 @@
 castv2
 ======
 
-[![NPM version](https://badge.fury.io/js/castv2.svg)](http://badge.fury.io/js/thepiratebay)
-[![Dependency Status](https://img.shields.io/david/thibauts/node-castv2.svg)](https://david-dm.org/t3chnoboy/thepiratebay)
+[![NPM version](https://badge.fury.io/js/castv2.svg)](http://badge.fury.io/js/castv2)
+[![Dependency Status](https://img.shields.io/david/thibauts/node-castv2.svg)](https://david-dm.org/thibauts/node-castv2)
 [![npm](https://img.shields.io/npm/dm/castv2.svg?maxAge=2592000)]()
 
 ### An implementation of the Chromecast CASTV2 protocol
@@ -14,20 +14,20 @@ The module provides both a `Client` and a `Server` implementation of the low-lev
 Installation
 ------------
 
-``` bash
+```bash
 $ npm install castv2
 ```
 
 On windows, to avoid native modules dependencies, use
 
-``` bash
+```bash
 $ npm install castv2 --no-optional
 ```
 
 Usage
 -----
 
-``` javascript
+```js
 var Client = require('castv2').Client;
 var mdns = require('mdns');
 
