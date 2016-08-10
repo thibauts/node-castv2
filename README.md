@@ -1,5 +1,10 @@
 castv2
 ======
+
+[![NPM version](https://badge.fury.io/js/castv2.svg)](http://badge.fury.io/js/thepiratebay)
+[![Dependency Status](https://img.shields.io/david/thibauts/node-castv2.svg)](https://david-dm.org/t3chnoboy/thepiratebay)
+[![npm](https://img.shields.io/npm/dm/castv2.svg?maxAge=2592000)]()
+
 ### An implementation of the Chromecast CASTV2 protocol
 
 This module is an implementation of the Chromecast CASTV2 protocol over TLS. The internet is very scarse on information about the new Chromecast protocol so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
