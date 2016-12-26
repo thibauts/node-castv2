@@ -7,7 +7,7 @@ castv2
 
 ### An implementation of the Chromecast CASTV2 protocol
 
-This module is an implementation of the Chromecast CASTV2 protocol over TLS. The internet is very scarse on information about the new Chromecast protocol so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
+This module is an implementation of the Chromecast CASTV2 protocol over TLS. The internet is very sparse on information about the new Chromecast protocol so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
 
 The module provides both a `Client` and a `Server` implementation of the low-level protocol. The server is (sadly) pretty useless because device authentication gets in the way for now (and maybe for good). The client still allows you to connect and exchange messages with a Chromecast dongle without any restriction. 
 
