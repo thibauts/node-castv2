@@ -139,7 +139,7 @@ Each *sender* or *receiver* can implement one or multiple protocols. For instanc
 
 ### Communicating with receivers
 
-Before being able to echange messages with a receiver (be it an *application* or the *platform*), a sender must establish a *virtual connection* with it. This is accomplished through the `urn:x-cast:com.google.cast.tp.connection` namespace / protocol. This has the effect of both allowing the sender to send messages to the receiver, and of subscribing the sender to the receiver's broadcasts (eg. status updates).
+Before being able to exchange messages with a receiver (be it an *application* or the *platform*), a sender must establish a *virtual connection* with it. This is accomplished through the `urn:x-cast:com.google.cast.tp.connection` namespace / protocol. This has the effect of both allowing the sender to send messages to the receiver, and of subscribing the sender to the receiver's broadcasts (eg. status updates).
 
 The protocol is JSON encoded and the semantics are pretty simple :
 
