@@ -7,7 +7,7 @@ castv2
 
 ### An implementation of the Chromecast CASTV2 protocol
 
-This module is an implementation of the Chromecast CASTV2 protocol over TLS. The internet is very scarse on information about the new Chromecast protocol so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
+This module is an implementation of the Chromecast CASTV2 protocol over TLS. The internet is very sparse on information about the new Chromecast protocol so big props go to [github.com/vincentbernat](https://github.com/vincentbernat) and his [nodecastor](https://github.com/vincentbernat/nodecastor) module that helped me start off on the right foot and save a good deal of time in my research.
 
 The module provides both a `Client` and a `Server` implementation of the low-level protocol. The server is (sadly) pretty useless because device authentication gets in the way for now (and maybe for good). The client still allows you to connect and exchange messages with a Chromecast dongle without any restriction. 
 
@@ -81,7 +81,7 @@ $ DEBUG=* node example.js
 Protocol description
 --------------------
 
-This is an attempt at documenting the low-level protocol. I hope it will give sender-app makers a clearer picture of what is happening behind the curtain, and give the others ideas about how this kind of protocol can be implemented. The information presented here has been collated from various internet sources (mainly exemple code and other attempts to implement the protocol) and my own trial and error. Correct me as needed as I may have gotten concepts or namings wrong.
+This is an attempt at documenting the low-level protocol. I hope it will give sender-app makers a clearer picture of what is happening behind the curtain, and give the others ideas about how this kind of protocol can be implemented. The information presented here has been collated from various internet sources (mainly example code and other attempts to implement the protocol) and my own trial and error. Correct me as needed as I may have gotten concepts or namings wrong.
 
 ### The TLS / Protocol Buffers layer
 
@@ -139,7 +139,7 @@ Each *sender* or *receiver* can implement one or multiple protocols. For instanc
 
 ### Communicating with receivers
 
-Before being able to echange messages with a receiver (be it an *application* or the *platform*), a sender must establish a *virtual connection* with it. This is accomplished through the `urn:x-cast:com.google.cast.tp.connection` namespace / protocol. This has the effect of both allowing the sender to send messages to the receiver, and of subscribing the sender to the receiver's broadcasts (eg. status updates).
+Before being able to exchange messages with a receiver (be it an *application* or the *platform*), a sender must establish a *virtual connection* with it. This is accomplished through the `urn:x-cast:com.google.cast.tp.connection` namespace / protocol. This has the effect of both allowing the sender to send messages to the receiver, and of subscribing the sender to the receiver's broadcasts (eg. status updates).
 
 The protocol is JSON encoded and the semantics are pretty simple :
 
@@ -154,7 +154,7 @@ Once the virtual connection is established messages can be exchanged. Broadcasts
 
 ### Keeping the connection alive
 
-Connections are kept alive through the `urn:x-cast:com.google.cast.tp.heartbeat` namespace / protocol. At regular intervals the sender must send a `PING` message that will get answered by a `PONG`. The protocol is JSON encoded.
+Connections are kept alive through the `urn:x-cast:com.google.cast.tp.heartbeat` namespace / protocol. At regular intervals, the sender must send a `PING` message that will get answered by a `PONG`. The protocol is JSON encoded.
 
 | **Message payload**     | **Description** 
 |:------------------------|:-----------------------------------------------------------------------
@@ -167,7 +167,7 @@ Failing to do so will lead to connection termination. The default interval seems
 
 Device authentication enables a sender to authenticate a Chromecast device. Authenticating the device is purely optional from a sender's perspective, though the official SDK libraries do it to prevent rogue Chromecast devices to communicate with the official sender platforms. Device authentication is taken care of by the `urn:x-cast:com.google.cast.tp.deviceauth` namespace / protocol.
 
-First the sender sends a *challenge* message to the platform receiver `receiver-0` which responds by either a *response* message containing a signature, certificate and a variable number of certificate authority certificates that the sent certificate is verified against or an *error* message. These 3 payloads are protocol buffers encoded and described in `cast_channel.proto` as follows :
+First, the sender sends a *challenge* message to the platform receiver `receiver-0` which responds by either a *response* message containing a signature, certificate and a variable number of certificate authority certificates that the sent certificate is verified against or an *error* message. These 3 payloads are protocol buffers encoded and described in `cast_channel.proto` as follows :
 
 ```protobuf
 message AuthChallenge {
@@ -198,9 +198,9 @@ The challenge message is empty in the current version of the protocol (CAST v2.1
 
 ### Controlling applications
 
-The platform receiver `receiver-0` implements the `urn:x-cast:com.google.cast.receiver` namespace / protocol which provides an interface to *launch*, *stop*, and *query the status* of running applications. `receiver-0` also broadcast status messages on this namespace when other senders launch, stop, or affect the status of running apps. It also allows to check app for availability.
+The platform receiver `receiver-0` implements the `urn:x-cast:com.google.cast.receiver` namespace / protocol which provides an interface to *launch*, *stop*, and *query the status* of running applications. `receiver-0` also broadcast status messages on this namespace when other senders launch, stop, or affect the status of running apps. It also allows checking the app for availability.
 
-The protocol is JSON encoded and is request / response based. Requests include a `type` field containing the type of the request, namely `LAUNCH`, `STOP`, `GET_STATUS` and `GET_APP_AVAILABILITY`, and a `requestId` field that will be reflected in the receiver's response and allows the sender to pair request and responses. `requestId` is not shown in the table below but must be present in every request. In the wild it is an initially random integer that gets incremented for each subsequent request.
+The protocol is JSON encoded and is request / response based. Requests include a `type` field containing the type of the request, namely `LAUNCH`, `STOP`, `GET_STATUS` and `GET_APP_AVAILABILITY`, and a `requestId` field that will be reflected in the receiver's response and allows the sender to pair request and responses. `requestId` is not shown in the table below but must be present in every request. In the wild, it is an initially random integer that gets incremented for each subsequent request.
 
 | **Message payload**                                  | **Description** 
 |:-----------------------------------------------------|:-----------------------------------------------------------------------
@@ -240,7 +240,7 @@ As these requests affect the receiver's status they all return a `RECEIVER_STATU
 
 This response indicates an instance of the *Default Media Receiver* is running with `sessionId 7E2FF513-CDF6-9A91-2B28-3E3DE7BAC174`. `namespaces` indicates which protocols are supported by the running app. This could allow any *sender application* implementing the *media protocol* to control playback on this session.
 
-Another important field here is `transportId` as it is the destinationId to be used to communicate with the app. Note that the app being a receiver like any other you must issue it a `CONNECT` message through the `urn:x-cast:com.google.cast.tp.connection` procotol before being able to send messages. In this case this will have the side effect of subscribing you to media updates (on the media channel) of this *Default Media Player* session.
+Another important field here is `transportId` as it is the destinationId to be used to communicate with the app. Note that the app being a receiver like any other you must issue it a `CONNECT` message through the `urn:x-cast:com.google.cast.tp.connection` protocol before being able to send messages. In this case, this will have the side effect of subscribing you to media updates (on the media channel) of this *Default Media Player* session.
 
 You can join an existing session (launched by another sender) by issuing the same `CONNECT` message.
 
