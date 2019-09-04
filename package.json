@@ -1,6 +1,6 @@
 {
   "name": "castv2",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "An implementation of the Chromecast CASTV2 protocol",
   "author": "thibauts",
   "license": "MIT",
