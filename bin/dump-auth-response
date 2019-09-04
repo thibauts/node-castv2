@@ -33,7 +33,7 @@ client.connect(opts, function() {
     var certFilenameDer = 'auth-certificate.der';
 
     fs.writeFileSync(sigFilename, response.signature.toString("binary"), "binary");
-    fs.writeFileSync(certFilenameDer, response.client_auth_certificate.toString("binary"), "binary");
+    fs.writeFileSync(certFilenameDer, response.clientAuthCertificate.toString("binary"), "binary");
 
     var certFilenamePem = 'auth-certificate.pem';
 
@@ -41,8 +41,8 @@ client.connect(opts, function() {
 
     console.log('output written to %s and %s', sigFilename, certFilenamePem);
 
-    for(var i = 0; i < response.client_ca.length; i++) {
-      var ca = response.client_ca[i];
+    for(var i = 0; i < response.clientCa.length; i++) {
+      var ca = response.clientCa[i];
       var ca_name = 'auth-ca' + (i + 1) + '.crt';
 
       fs.writeFileSync(ca_name, ca.toString("binary"), "binary");
